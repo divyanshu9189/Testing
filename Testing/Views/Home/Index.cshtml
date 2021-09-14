@@ -1,1 +1,314 @@
 ﻿
+
+
+
+<script src="~/MyScript/MyApp.js"></script>
+<div class="container mn-ht-100p" ng-controller="a">
+    <div class="az-content-left az-content-left-profile">
+        <div class="az-profile-overview">
+            <label class="az-content-label tx-13 mg-0">Filter &amp; Controls</label>
+            <hr class="mg-t-10">
+            <div class="az-profile-social-list">
+                <div class="row">
+
+
+
+                    <div class="col-md-12 mt-3">
+                        <div class="">
+                            <select class="form-control select2" id="m_batchname" ng-change="Term_details()" ng-model="m_batchname" placeholder="Course">
+                                <option value="">Batch Name</option>
+                                <option ng-repeat="x in listdata1" value="{{x.section_id}}">{{x.section_id}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mt-3">
+                        <div class="">
+                            <select ng-disabled="true" class="form-control select2" id="m_sem" ng-model="m_sem">
+                                <option selected value="Divyanshu" ng-repeat="x in listdata3">Divyanshu}</option>
+
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3 ">
+                        <div class="">
+                            <select ng-disabled="true" class="form-control select2" id="m_term">
+
+                                <option selected value="{{x.term}}" ng-repeat="x in listdata3">{{x.term}}</option>
+
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <div class="">
+                            <input type="number" ng-model="MinMax" id="MinMax" class="w-100 p-1 input-group-sm" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mt-3">
+
+                        <button class="btn btn-success btn-with-icon btn-block" ng-click="student_detail()">
+
+                            <i class="typcn typcn-filter"></i> Display Student
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="az-content-body az-content-body-profile" style="margin-left:10px">
+        <div class="mn-ht-100p right-container">
+
+            <div class="content-wrapper w-100">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="">
+                            <div class="">
+                                <h4 class="card-title">Display Student</h4>
+
+
+                                <div class="row mb-2">
+                                    <div class="col-md-1">
+                                        <div class="spinner-border text-primary" value="20" style="display:none" role="status" id="load"></div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <center ng-show="listdata2.length == 0">
+                                            <img src="~/Assest/tabimage/loading.gif" style="width:40px; margin-top:10px;" />
+                                        </center>
+                                    </div>
+
+                                </div>
+                                <div class="row overflow-auto">
+
+                                    @*<div class="alert alert-danger col-md-12" ng-show="listdata2.length==0">
+                                            Sorry!!! No Record Found.
+                                        </div>*@
+
+                                    <div class="col-12">
+
+                                        <div ng-hide="listdata2.length > 0" class="alert alert-danger col-md-12">
+                                            Sorry!!! No Record Found.
+                                        </div>
+                                        <div ng-show="listdata2.length > 0" class="box-body">
+                                            <table class="table az-table-reference table-hover mg-t-0">
+                                                <thead>
+                                                    <tr style="text-align:center">
+
+                                                        <th class="wd-35">S.No</th>
+                                                        <th class="wd-90">U.RollNo</th>
+                                                        <th>Name</th>
+                                                        <th>Father Name</th>
+
+                                                        <th class="wd-65">I Term</th>
+                                                        <th class="wd-65">Mid Term</th>
+                                                        <th class="wd-65">Ends Term</th>
+                                                        <th class="wd-65">TA</th>
+
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="x in listdata2 ">
+
+                                                        <td align="center" style="vertical-align:middle">{{$index+1}}</td>
+                                                        <td style="vertical-align:middle">{{x.URoll}}</td>
+                                                        <td style="vertical-align:middle">{{x.Name}}</td>
+                                                        <td style="vertical-align:middle">{{x.FatherName}}</td>
+
+                                                        <td ng-model="form.aa" style="vertical-align:middle;text-align:center">
+                                                            <span ng-show="First">{{x.First}}</span>
+                                                            <input class="form-control input-group-sm  text-center" id="first" ng-hide="First" value="{{x.First}}" ng-model="x.First" />
+
+                                                        </td>
+
+                                                        <td id="Mid" ng-model="form.ab" style="vertical-align:middle;text-align:center">
+
+                                                            <span id="val" ng-show="Mid">{{x.Mid}}</span>
+                                                            <input id="Mid" class="form-control input-group-sm text-center " ng-hide="Mid" type="text" value="{{x.Mid}}" ng-model="x.Mid" />
+
+                                                        </td>
+                                                        <td ng-model="form.ac" style="vertical-align:middle;text-align:center">
+                                                            <span ng-show="End">{{x.End}}</span>
+                                                            <input class="form-control  input-group-sm text-center" id="End" ng-hide="End" type="text" value="{{x.End}}" ng-model="x.End" />
+
+                                                        </td>
+                                                        <td ng-model="form.ad" style="vertical-align:middle;text-align:center">
+                                                            <span ng-show="TA">{{x.TA}}</span>
+                                                            <input class="form-control  input-group-sm text-center" id="TA" ng-hide="TA" type="text" value="{{x.TA}}" ng-model="x.TA" />
+
+                                                        </td>
+
+
+
+
+                                                    </tr>
+
+
+                                                </tbody>
+
+
+                                            </table>
+
+                                            <div class="col-md-12 mt-3">
+                                                <center>
+
+                                                    <button type="button" ng-hide="b" ng-disabled="a.$dirty" ng-click="submitt()" class="btn btn-primary btn-sm"><i ng-click="submitt()" class="typcn typcn-upload"></i> Submit </button>
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    app.controller('a', function ($scope, myService) {
+        $scope.disable = function () {
+
+            if ($scope.listdata3[0].term == 'TA') {
+
+                $scope.b = false;
+                $scope.First = true;
+                $scope.Mid = true;
+                $scope.End = true;
+                $scope.TA = false;
+            }
+            else if ($scope.listdata3[0].term == 'First') {
+                $scope.b = false;
+                $scope.First = false;
+                $scope.Mid = true;
+                $scope.End = true;
+                $scope.TA = true;
+            }
+            else if ($scope.listdata3[0].term == 'Mid') {
+                $scope.b = false;
+                $scope.First = true;
+                $scope.Mid = false;
+                $scope.End = true;
+                $scope.TA = true;
+            }
+            else if ($scope.listdata3[0].term == 'End') {
+                $scope.b = false;
+                $scope.First = true;
+                $scope.Mid = true;
+                $scope.End = false;
+                $scope.TA = true;
+            }
+            else if ($scope.listdata3[0].term == 'Full') {
+                alert("Marks already uploaded")
+                $scope.b = true;
+                $scope.First = true;
+                $scope.Mid = true;
+                $scope.End = true;
+                $scope.TA = true;
+            }
+
+        }
+        $scope.getstudietdata = function () {
+            var Path = "/Test/Theory";
+            var noP = "";
+            var feeSp31 = myService.UserLogin(noP, Path);
+            feeSp31.then(function sucess(d) {
+                $scope.listdata1 = d.data;
+
+            }, function error(d) {
+                console.log(d);
+            });
+
+        }
+        $scope.getstudietdata();
+
+
+        $scope.section_id = '';
+        $scope.term = '';
+        $scope.student_detail = function () {
+
+            $scope.disable()
+            var Path = "/Test/student_detail";
+            var noP = { 'P1': $("#m_batchname").val(), 'P2': $("#m_term").val() };
+
+            var feeSp31 = myService.UserLogin(noP, Path);
+            feeSp31.then(function sucess(d) {
+                $scope.listdata2 = d.data;
+
+
+            }, function error(d) {
+                console.log(d);
+            });
+        }
+        $scope.Term_details = function () {
+
+            var Path = "/Test/Term_details";
+            var noP = { 'P1': $("#m_batchname").val() };
+            var feeSp31 = myService.UserLogin(noP, Path);
+            feeSp31.then(function sucess(d) {
+                $scope.listdata3 = d.data;
+
+
+            }, function error(d) {
+                console.log(d);
+            });
+        }
+
+        $scope.URoll = '';
+        $scope.Fetch_details = function () {
+
+            var Path = "/Test/Fetch_details";
+            var noP = { 'section_id': $("#m_batchname").val() };
+            var feeSp31 = myService.UserLogin(noP, Path);
+            feeSp31.then(function sucess(d) {
+                $scope.listdata4 = [];
+
+
+            }, function error(d) {
+                console.log(d);
+            });
+        }
+        $scope.submitt = function () {
+            var a = 20;
+            var max = document.getElementById("Mid");
+            alert(max);
+            var min = $("#MinMax").val();
+             alert(min);
+            if (max >= min) {
+                alert("");
+
+            }
+            else if (min =="") {
+                alert("Enter Marks greater then zero")
+            }
+            else {
+                var Path = "/Test/DateInsert";
+                //var noP = { 'P1': $("#m_batchname").val(), 'P2': $("#Mid").val(), 'P5': $("#m_term").val(), 'p6': $scope.listdata3};
+                var noP = { f: $scope.listdata2, 'refe': $("m_batchname").val() };
+
+                var feeSp31 = myService.UserLogin(noP, Path);
+                feeSp31.then(function success(d) {
+                    alert(d.data);
+                    $scope.listdata5 = [];
+
+
+                }, function error(d) {
+                    console.log(d);
+                });
+            }
+        }
+    });
+
+</script>
+
+
+<script src="~/MyScript/MyService.js"></script>
